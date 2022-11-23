@@ -6,6 +6,7 @@ export type UserType = {
   id: number;
   username: string;
   email: string;
+  active: boolean;
 };
 
 function App() {
@@ -26,16 +27,19 @@ function App() {
       id: 1,
       username: "velopert",
       email: "public.velopert@gmail.com",
+      active: true,
     },
     {
       id: 2,
       username: "tester",
       email: "tester@example.com",
+      active: false,
     },
     {
       id: 3,
       username: "liz",
       email: "liz@example.com",
+      active: false,
     },
   ]);
 
@@ -45,6 +49,7 @@ function App() {
       id: nextId.current,
       username,
       email,
+      active: false,
     };
     setUsers(users.concat(user));
 
@@ -54,6 +59,18 @@ function App() {
     });
     nextId.current += 1;
   };
+
+  const onRemove = (id: number) => {
+    setUsers(users.filter((user) => user.id !== id));
+  };
+  const onToggle = (id: number) => {
+    setUsers(
+      users.map((user) =>
+        user.id === id ? { ...user, active: !user.active } : user
+      )
+    );
+  };
+
   return (
     <>
       <CreateUser
@@ -62,7 +79,7 @@ function App() {
         onChange={onChange}
         onCreate={onCreate}
       />
-      <UserList users={users} />
+      <UserList users={users} onRemove={onRemove} onToggle={onToggle} />
     </>
   );
 }

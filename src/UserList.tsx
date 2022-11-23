@@ -1,19 +1,50 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { UserType } from "./App";
 
-function User({ user }: { user: UserType }) {
+function User({
+  user,
+  onRemove,
+  onToggle,
+}: {
+  user: UserType;
+  onRemove: (id: number) => void;
+  onToggle: (id: number) => void;
+}) {
   return (
     <div>
-      <b>{user.username}</b> <span>({user.email})</span>
+      <b
+        style={{
+          cursor: "pointer",
+          color: user.active ? "green" : "black",
+        }}
+        onClick={() => onToggle(user.id)}
+      >
+        {user.username}
+      </b>
+      <span>({user.email})</span>
+      <button onClick={() => onRemove(user.id)}>삭제</button>
     </div>
   );
 }
 
-function UserList({ users }: { users: UserType[] }) {
+function UserList({
+  users,
+  onRemove,
+  onToggle,
+}: {
+  users: UserType[];
+  onRemove: (id: number) => void;
+  onToggle: (id: number) => void;
+}) {
   return (
     <div>
       {users.map((user) => (
-        <User user={user} key={user.id} />
+        <User
+          user={user}
+          key={user.id}
+          onRemove={onRemove}
+          onToggle={onToggle}
+        />
       ))}
     </div>
   );
