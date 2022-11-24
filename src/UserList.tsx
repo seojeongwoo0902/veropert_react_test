@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { UserType } from "./App";
 
 function User({
@@ -10,6 +10,7 @@ function User({
   onRemove: (id: number) => void;
   onToggle: (id: number) => void;
 }) {
+  console.log("UserList 랜더링");
   return (
     <div>
       <b
@@ -50,4 +51,4 @@ function UserList({
   );
 }
 
-export default UserList;
+export default React.memo(UserList);

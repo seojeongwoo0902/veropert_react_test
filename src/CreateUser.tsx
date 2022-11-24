@@ -11,6 +11,7 @@ const CreateUser = ({
   onChange: (e: React.FormEvent<HTMLInputElement>) => void;
   onCreate: () => void;
 }) => {
+  console.log("CreateUser 랜더링");
   return (
     <div>
       <input
@@ -30,4 +31,4 @@ const CreateUser = ({
   );
 };
 
-export default CreateUser;
+export default React.memo(CreateUser);
